@@ -4,7 +4,7 @@ import logo from "../mern-blog-assets-main/logo.png";
 // import { FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 
-const Header = () => {
+const Navbar = () => {
   return (
     <nav>
       <div className="container nav__container">
@@ -32,4 +32,4 @@ const Header = () => {
     </nav>
   );
 };
-export default Header;
+export default Navbar;

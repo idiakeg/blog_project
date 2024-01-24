@@ -19,7 +19,7 @@
   --form-width: 50%;
 
   --radius-1: 0.3rem;
-  --radius-2: 0.6ren;
+  --radius-2: 0.6rem;
   --radius-3: 1rem;
   --radius-4: 2rem;
 }
@@ -92,14 +92,14 @@ section {
 }
 
 .container {
-  width: var(--container-width-lgx);
+  width: var(--container-width-lg);
   margin-inline: auto;
 }
 
 .btn {
   display: inline-block;
   width: fit-content;
-  padding: 0.5rem 1remx;
+  padding: 0.5rem 1rem;
   border-radius: var(--radius-2);
   background: var(--color-white);
   font-weight: 500;
@@ -135,8 +135,75 @@ section {
 }
 
 /* ==========================NAVBAR=============================== */
+nav {
+  width: 100vw;
+  z-index: 99;
+  display: grid;
+  place-items: center;
+  height: 5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(255, 255, 255, 0.5);
+  border-bottom: 4px solid var(--color-bg);
+  backdrop-filter: blur(20px);
+}
+
+.nav__container {
+  border: 1px solid green;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
 
 .nav__logo {
   display: block; /* this property is necessary to ensure that the link element respects the width property*/
   width: 3.5rem;
+}
+
+.nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.nav__toggle-btn {
+  display: none;
+}
+
+/* ========================== FOOTER =============================== */
+footer {
+  background: var(--color-gray-900);
+  margin-top: 6rem;
+  padding-top: 6rem;
+}
+
+.footer__categories {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.footer__categories a {
+  background-color: var(--color-gray-700);
+  color: var(--color-white);
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius-2);
+  transition: var(--transition);
+}
+
+.footer__categories a:hover {
+  background-color: var(--color-white);
+  color: var(--color-gray-900);
+}
+
+.footer__copyright {
+  text-align: center;
+  border-top: 2px solid var(--color-gray-700);
+  color: var(--color-white);
+  font-weight: 300;
+  padding: 1rem;
 }
