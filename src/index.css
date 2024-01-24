@@ -236,6 +236,37 @@ nav {
   overflow: hidden;
 }
 
+/* =========================== POST DETAIL ========================= */
+.post__detail {
+  width: var(--form-width);
+  background: var(--color-white);
+  margin-inline: auto;
+  padding: 2rem 0;
+}
+
+.post__detail-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.post__detail-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.post__detail-thumbnail {
+  height: fit-content;
+  margin: 1rem 0;
+  max-height: 30rem;
+  overflow: hidden;
+}
+
+.post__detail-container p {
+  margin-bottom: 0.7rem;
+}
+
 /* ========================== FOOTER =============================== */
 footer {
   background: var(--color-gray-900);
