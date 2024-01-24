@@ -267,6 +267,59 @@ nav {
   margin-bottom: 0.7rem;
 }
 
+/* ========================== REGISTER and FORM =============================== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  resize: none;
+  border-radius: var(--radius-1);
+}
+
+.form__error-message {
+  background-color: var(--color-red);
+  color: var(--color-white);
+  padding: 0.6rem 1rem;
+  font-size: 0.8rem;
+  border-radius: var(--radius-1);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.register,
+.login,
+.create__post {
+  width: var(--form-width);
+  margin-inline: auto;
+  height: calc(100vh - 12rem);
+  display: grid;
+  place-items: center;
+}
+
+.register h2,
+.login h2,
+.create__post h2 {
+  margin-bottom: 2rem;
+}
+
+.register small,
+.login small {
+  margin-top: 1.5rem;
+  display: block;
+}
+
+.register small a,
+.login small a {
+  color: var(--color-primary);
+}
+
 /* ========================== FOOTER =============================== */
 footer {
   background: var(--color-gray-900);
