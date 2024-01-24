@@ -162,7 +162,6 @@ nav {
 }
 
 .nav__container {
-  border: 1px solid green;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -182,6 +181,59 @@ nav {
 
 .nav__toggle-btn {
   display: none;
+}
+
+/* ========================== POST =============================== */
+.post__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+}
+
+.post {
+  background: var(--color-white);
+  border-radius: var(--radius-4);
+  padding: 1rem;
+  transition: var(--transition);
+  cursor: default;
+}
+
+.post:hover {
+  box-shadow: 0 1.5rem 2.5rem rgba(0, 0, 0, 0.1);
+}
+
+.post__thumbnail {
+  height: 13rem;
+  border-radius: var(--radius-3);
+  overflow: hidden;
+}
+
+.post__content {
+  margin-top: 1.5rem;
+}
+
+.post__content h3 {
+  margin: 1rem 0 0.6rem;
+}
+
+.post__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 2rem;
+}
+
+.post__author {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.post__author-avatar {
+  width: 2.5rem;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-2);
+  overflow: hidden;
 }
 
 /* ========================== FOOTER =============================== */
