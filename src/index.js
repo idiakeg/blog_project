@@ -17,33 +17,38 @@ import AuthorPosts from "./pages/AuthorPosts";
 import Logout from "./pages/Logout";
 import DeletePost from "./pages/DeletePost";
 import Dashboard from "./pages/Dashboard";
+import AuthProvider from "./context/AuthProvider";
 
 const _router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    errorElement: <ErrorPage />,
-    children: [
-      { index: true, element: <Home /> },
-      { path: "register", element: <Register /> },
-      { path: "/posts/:id", element: <PostDetail /> },
-      { path: "login", element: <Login /> },
-      { path: "profile/:id", element: <UserProfile /> },
-      { path: "authors", element: <Authors /> },
-      { path: "create", element: <CreatePost /> },
-      { path: "posts/categories/:category", element: <CategoryPosts /> },
-      { path: "post/users/:id", element: <AuthorPosts /> },
-      { path: "myposts/:id", element: <Dashboard /> },
-      { path: "posts/:id/edit", element: <EditPost /> },
-      { path: "posts/:id/delete", element: <DeletePost /> },
-      { path: "logout", element: <Logout /> },
-    ],
-  },
+    {
+        path: "/",
+        element: (
+            <AuthProvider>
+                <Layout />{" "}
+            </AuthProvider>
+        ),
+        errorElement: <ErrorPage />,
+        children: [
+            { index: true, element: <Home /> },
+            { path: "register", element: <Register /> },
+            { path: "/posts/:id", element: <PostDetail /> },
+            { path: "login", element: <Login /> },
+            { path: "profile/:id", element: <UserProfile /> },
+            { path: "authors", element: <Authors /> },
+            { path: "create", element: <CreatePost /> },
+            { path: "posts/categories/:category", element: <CategoryPosts /> },
+            { path: "post/users/:id", element: <AuthorPosts /> },
+            { path: "myposts/:id", element: <Dashboard /> },
+            { path: "posts/:id/edit", element: <EditPost /> },
+            { path: "posts/:id/delete", element: <DeletePost /> },
+            { path: "logout", element: <Logout /> },
+        ],
+    },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={_router} />
-  </React.StrictMode>
+    <React.StrictMode>
+        <RouterProvider router={_router} />
+    </React.StrictMode>
 );
