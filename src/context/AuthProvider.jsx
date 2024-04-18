@@ -55,6 +55,37 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+    // -----> Edit Post
+    const editPost = async (post_id, data, token) => {
+        try {
+            setIsLoading(true);
+            const response = await fetch(
+                `${REACT_APP_BASE_URL}/posts/${post_id}`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        Authorization: `bearer ${token}`,
+                    },
+                    body: data,
+                }
+            );
+            const { status, message, editedPost } = await response.json();
+            if (status === "success") {
+                setIsLoading(false);
+                setSinglePosts(editedPost);
+                navigate(-1);
+            }
+
+            if (message) {
+                throw new Error(message);
+            }
+        } catch (error) {
+            console.log(error);
+            setErrorMessage(error.message);
+            setIsLoading(false);
+        }
+    };
+
     // ======== AUTHENTICATION =========
     // ------> Login handler
     const handleLogin = async (email, password) => {
@@ -99,9 +130,6 @@ const AuthProvider = ({ children }) => {
         // navigate("/login")
     };
 
-    useEffect(() => {
-        getAllPost();
-    }, []);
     return (
         <AuthContext.Provider
             value={{
@@ -112,6 +140,8 @@ const AuthProvider = ({ children }) => {
                 handleLogout,
                 getSinglePost,
                 singlePost,
+                editPost,
+                getAllPost,
             }}
         >
             {children}

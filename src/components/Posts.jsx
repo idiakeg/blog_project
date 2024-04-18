@@ -1,11 +1,15 @@
-import React from "react";
+import { useEffect } from "react";
 import PostItem from "./PostItem";
 
 import { useAuth } from "../context/AuthProvider";
 import Loading from "./Loading/Loading";
 
 const Posts = () => {
-    const { allPosts, isLoading } = useAuth();
+    const { allPosts, isLoading, getAllPost } = useAuth();
+
+    useEffect(() => {
+        getAllPost();
+    }, []);
     return (
         <>
             {isLoading ? (
