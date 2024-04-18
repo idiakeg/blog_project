@@ -1,0 +1,21 @@
+.loading_container{
+    height: 100vh;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.loading_container div{
+    border: 3px solid transparent;
+    border-top: 3px solid black;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    animation: spinner .85s infinite linear;
+}
+
+@keyframes spinner {
+    100%{
+        transform: rotate(360deg);
+    }
+}
