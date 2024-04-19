@@ -1,19 +1,22 @@
 import { useParams } from "react-router-dom";
 import PostAuthor from "../components/PostAuthor";
 import { Link } from "react-router-dom";
-import thumbnail from "../mern-blog-assets-main/blog22.jpg";
 import { useAuth } from "../context/AuthProvider";
 import { useEffect } from "react";
 import Loading from "../components/Loading/Loading";
 
 const PostDetail = () => {
     const { id } = useParams();
-    const { getSinglePost, singlePost, isLoading } = useAuth();
+    const { getSinglePost, singlePost, isLoading, deletePost } = useAuth();
     const appUser = JSON.parse(localStorage.getItem("bird_app_user"));
     const isMatch = appUser?._id === singlePost?.creator?._id;
+    const token = JSON.parse(localStorage.getItem("bird_app_user_token"));
+
+    const handleDeletePost = () => {
+        deletePost(id, token);
+    };
     useEffect(() => {
         getSinglePost(id);
-        // console.log(singlePost);
     }, []);
     return (
         <>
@@ -39,7 +42,7 @@ const PostDetail = () => {
                                         Edit
                                     </Link>
                                     <Link
-                                        to={`/posts/post_id/delete`}
+                                        onClick={handleDeletePost}
                                         className="btn sm danger"
                                     >
                                         Delete

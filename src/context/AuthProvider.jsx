@@ -103,12 +103,6 @@ const AuthProvider = ({ children }) => {
             const { status, message, post } = await response.json();
             if (status === "success") {
                 setIsLoading(false);
-                setAllPosts((prev) => {
-                    return {
-                        ...prev,
-                        post,
-                    };
-                });
                 navigate("/");
                 return;
             }
@@ -134,7 +128,6 @@ const AuthProvider = ({ children }) => {
                 setCategoryPosts(categoryPost);
                 return;
             }
-            // console.log(rd);
             throw new Error(message);
         } catch (error) {
             console.log(error);
@@ -156,6 +149,32 @@ const AuthProvider = ({ children }) => {
                 return;
             }
             throw new Error(message);
+        } catch (error) {
+            console.log(error);
+            setIsLoading(false);
+        }
+    };
+
+    // -----> Delete Post
+    const deletePost = async (post_id, token) => {
+        setIsLoading(true);
+        try {
+            const response = await fetch(
+                `${REACT_APP_BASE_URL}/posts/${post_id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `bearer ${token}`,
+                    },
+                }
+            );
+            const { status } = await response.json();
+            if (status === "success") {
+                setIsLoading(true);
+                navigate(-1);
+                return;
+            }
+            throw new Error();
         } catch (error) {
             console.log(error);
             setIsLoading(false);
@@ -253,6 +272,7 @@ const AuthProvider = ({ children }) => {
                 categoryPosts,
                 getPostByAuthor,
                 authorPost,
+                deletePost,
             }}
         >
             {children}
