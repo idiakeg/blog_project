@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../mern-blog-assets-main/logo.png";
 import { FaBars } from "react-icons/fa";

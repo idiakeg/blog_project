@@ -47,8 +47,9 @@ const AuthProvider = ({ children }) => {
                 setIsLoading(false);
                 setSinglePosts(post);
                 // console.log(singlePost);
+                return;
             }
-            if (message) throw new Error(message);
+            throw new Error(message);
         } catch (error) {
             setIsLoading(false);
             console.log(error);
@@ -74,11 +75,10 @@ const AuthProvider = ({ children }) => {
                 setIsLoading(false);
                 setSinglePosts(editedPost);
                 navigate(-1);
+                return;
             }
 
-            if (message) {
-                throw new Error(message);
-            }
+            throw new Error(message);
         } catch (error) {
             console.log(error);
             setErrorMessage(error.message);
@@ -110,6 +110,7 @@ const AuthProvider = ({ children }) => {
                     JSON.stringify(token)
                 );
                 navigate("/");
+                return;
             }
 
             throw new Error(message);
@@ -120,9 +121,37 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+    // ------> Register handler
+    const handleRegister = async (data) => {
+        try {
+            setIsLoading(true);
+            const response = await fetch(
+                `${REACT_APP_BASE_URL}/users/register`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                }
+            );
+            const { status, message } = await response.json();
+            if (status === "success") {
+                setIsLoading(false);
+                navigate("/login");
+                return;
+            }
+
+            throw new Error(message);
+        } catch (error) {
+            setIsLoading(false);
+            setErrorMessage(error.message);
+            console.log(error);
+        }
+    };
+
     // ------> Logout handler
     const handleLogout = () => {
-        console.log("logout cllicked");
         setUser(null);
         localStorage.removeItem("bird_app_user");
         setToken("");
@@ -142,6 +171,7 @@ const AuthProvider = ({ children }) => {
                 singlePost,
                 editPost,
                 getAllPost,
+                handleRegister,
             }}
         >
             {children}
