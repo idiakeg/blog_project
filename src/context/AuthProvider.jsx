@@ -1,4 +1,4 @@
-import { useContext, createContext, useEffect, useState } from "react";
+import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
@@ -8,6 +8,7 @@ const AuthProvider = ({ children }) => {
     // state definitions
     const [allPosts, setAllPosts] = useState([]);
     const [singlePost, setSinglePosts] = useState(null);
+    const [categoryPosts, setCategoryPosts] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState(null);
@@ -119,6 +120,27 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+    // -----> Get Posts by category
+    const getCategoryPost = async (category) => {
+        try {
+            setIsLoading(true);
+            const response = await fetch(
+                `${REACT_APP_BASE_URL}/posts/categories/${category}`
+            );
+            const { status, message, categoryPost } = await response.json();
+            if (status === "success") {
+                setIsLoading(false);
+                setCategoryPosts(categoryPost);
+                return;
+            }
+            // console.log(rd);
+            throw new Error(message);
+        } catch (error) {
+            console.log(error);
+            setIsLoading(false);
+        }
+    };
+
     // ======== AUTHENTICATION =========
     // ------> Login handler
     const handleLogin = async (email, password) => {
@@ -206,6 +228,8 @@ const AuthProvider = ({ children }) => {
                 getAllPost,
                 handleRegister,
                 createPost,
+                getCategoryPost,
+                categoryPosts,
             }}
         >
             {children}
