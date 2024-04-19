@@ -86,6 +86,39 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+    // -----> Create Post
+    const createPost = async (data, token) => {
+        try {
+            setIsLoading(true);
+            const response = await fetch(`${REACT_APP_BASE_URL}/posts`, {
+                method: "POST",
+                headers: {
+                    Authorization: `bearer ${token}`,
+                },
+                body: data,
+            });
+
+            const { status, message, post } = await response.json();
+            if (status === "success") {
+                setIsLoading(false);
+                setAllPosts((prev) => {
+                    return {
+                        ...prev,
+                        post,
+                    };
+                });
+                navigate("/");
+                return;
+            }
+
+            throw new Error(message);
+        } catch (error) {
+            console.log(error);
+            setIsLoading(false);
+            setErrorMessage(error.message);
+        }
+    };
+
     // ======== AUTHENTICATION =========
     // ------> Login handler
     const handleLogin = async (email, password) => {
@@ -172,6 +205,7 @@ const AuthProvider = ({ children }) => {
                 editPost,
                 getAllPost,
                 handleRegister,
+                createPost,
             }}
         >
             {children}
