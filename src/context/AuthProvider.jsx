@@ -10,6 +10,7 @@ const AuthProvider = ({ children }) => {
     const [singlePost, setSinglePosts] = useState(null);
     const [categoryPosts, setCategoryPosts] = useState([]);
     const [authorPost, setAuthorPosts] = useState([]);
+    const [authors, setAuthors] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState(null);
@@ -181,6 +182,24 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+    // -----> Get All Authors
+    const getAllAuthors = async () => {
+        try {
+            setIsLoading(true);
+            const response = await fetch(`${REACT_APP_BASE_URL}/users`);
+            const { status, allUsers, message } = await response.json();
+            if (status === "success") {
+                setAuthors(allUsers);
+                setIsLoading(false);
+                return;
+            }
+            throw new Error(message);
+        } catch (error) {
+            setIsLoading(false);
+            console.log(error);
+        }
+    };
+
     // ======== AUTHENTICATION =========
     // ------> Login handler
     const handleLogin = async (email, password) => {
@@ -273,6 +292,8 @@ const AuthProvider = ({ children }) => {
                 getPostByAuthor,
                 authorPost,
                 deletePost,
+                getAllAuthors,
+                authors,
             }}
         >
             {children}
