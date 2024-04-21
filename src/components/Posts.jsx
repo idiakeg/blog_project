@@ -16,9 +16,9 @@ const Posts = () => {
                 <Loading />
             ) : (
                 <section className="posts">
+                    <h1 className="section_title">All Posts</h1>
                     {allPosts?.length > 0 ? (
                         <div className="container post__container">
-                            <h1 className="section_title">All Posts</h1>
                             {allPosts.map(
                                 ({
                                     _id,

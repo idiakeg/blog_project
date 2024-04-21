@@ -462,7 +462,9 @@ textarea {
 
 .dashboard__post-thumbnail {
     width: 4rem;
-    border-radius: var(--radius-1);
+    height: 4rem; /* or aspect-ratio: 1 / 1; */
+    /* border-radius: var(--radius-1); */
+    border-radius: 50%;
     overflow: hidden;
 }
 

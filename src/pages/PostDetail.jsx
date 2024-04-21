@@ -24,7 +24,6 @@ const PostDetail = () => {
                 <Loading />
             ) : (
                 <section className="post__detail">
-                    <h1 className="section_title">Post Detail</h1>
                     <div className="container post__detail-container">
                         <div className="post__detail-header">
                             <PostAuthor
