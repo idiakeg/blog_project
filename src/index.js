@@ -14,10 +14,9 @@ import EditPost from "./pages/EditPost";
 import PostDetail from "./pages/PostDetail";
 import CategoryPosts from "./pages/CategoryPosts";
 import AuthorPosts from "./pages/AuthorPosts";
-import Logout from "./pages/Logout";
-import DeletePost from "./pages/DeletePost";
 import Dashboard from "./pages/Dashboard";
 import AuthProvider from "./context/AuthProvider";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 const _router = createBrowserRouter([
     {
@@ -33,15 +32,41 @@ const _router = createBrowserRouter([
             { path: "register", element: <Register /> },
             { path: "/posts/:id", element: <PostDetail /> },
             { path: "login", element: <Login /> },
-            { path: "profile/:id", element: <UserProfile /> },
             { path: "authors", element: <Authors /> },
-            { path: "create", element: <CreatePost /> },
             { path: "posts/categories/:category", element: <CategoryPosts /> },
             { path: "post/users/:id", element: <AuthorPosts /> },
-            { path: "myposts/:id", element: <Dashboard /> },
-            { path: "posts/:id/edit", element: <EditPost /> },
-            { path: "posts/:id/delete", element: <DeletePost /> },
-            { path: "logout", element: <Logout /> },
+            {
+                path: "create",
+                element: (
+                    <ProtectedRoutes>
+                        <CreatePost />
+                    </ProtectedRoutes>
+                ),
+            },
+            {
+                path: "profile/:id",
+                element: (
+                    <ProtectedRoutes>
+                        <UserProfile />
+                    </ProtectedRoutes>
+                ),
+            },
+            {
+                path: "myposts/:id",
+                element: (
+                    <ProtectedRoutes>
+                        <Dashboard />
+                    </ProtectedRoutes>
+                ),
+            },
+            {
+                path: "posts/:id/edit",
+                element: (
+                    <ProtectedRoutes>
+                        <EditPost />
+                    </ProtectedRoutes>
+                ),
+            },
         ],
     },
 ]);

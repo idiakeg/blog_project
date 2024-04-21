@@ -1,9 +1,10 @@
 import { useContext, createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+    const { state } = useLocation();
     const navigate = useNavigate();
     // state definitions
     const [allPosts, setAllPosts] = useState([]);
@@ -17,6 +18,8 @@ const AuthProvider = ({ children }) => {
     const [token, setToken] = useState("");
 
     const { REACT_APP_BASE_URL } = process.env;
+
+    const redirectPath = state || "/";
 
     // -----> Get All Posts
     const getAllPost = async () => {
@@ -223,7 +226,7 @@ const AuthProvider = ({ children }) => {
                     "bird_app_user_token",
                     JSON.stringify(token)
                 );
-                navigate("/");
+                navigate(redirectPath, { replace: true });
                 return;
             }
 
