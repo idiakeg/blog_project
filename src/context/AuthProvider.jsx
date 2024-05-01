@@ -276,6 +276,70 @@ const AuthProvider = ({ children }) => {
         // navigate("/login")
     };
 
+    // ------> Change avatar handler
+    const changeAvatar = async (data, token) => {
+        setIsLoading(true);
+        try {
+            const response = await fetch(
+                `${REACT_APP_BASE_URL}/users/change_avatar`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `bearer ${token}`,
+                    },
+                    body: data,
+                }
+            );
+            const { status, updatedAvatar, message } = await response.json();
+            if (status === "success") {
+                localStorage.setItem(
+                    "bird_app_user",
+                    JSON.stringify(updatedAvatar)
+                );
+                setIsLoading(false);
+                return;
+            }
+            throw new Error(message);
+        } catch (error) {
+            setIsLoading(false);
+            setErrorMessage(error.message);
+            console.log(error);
+        }
+    };
+
+    // ------> update handler
+    const updateUser = async (data, token) => {
+        setIsLoading(true);
+
+        try {
+            const response = await fetch(
+                `${REACT_APP_BASE_URL}/users/edit_user`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `bearer ${token}`,
+                    },
+                    body: JSON.stringify(data),
+                }
+            );
+            const { status, message, updatedUser } = await response.json();
+            if (status === "success") {
+                setIsLoading(false);
+                localStorage.setItem(
+                    "bird_app_user",
+                    JSON.stringify(updatedUser)
+                );
+                return;
+            }
+            throw new Error(message);
+        } catch (error) {
+            setErrorMessage(error.message);
+            setIsLoading(false);
+            console.log(error);
+        }
+    };
+
     return (
         <AuthContext.Provider
             value={{
@@ -297,6 +361,8 @@ const AuthProvider = ({ children }) => {
                 deletePost,
                 getAllAuthors,
                 authors,
+                changeAvatar,
+                updateUser,
             }}
         >
             {children}
