@@ -1,4 +1,4 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const AuthContext = createContext();
@@ -16,20 +16,27 @@ const AuthProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState(null);
     const [token, setToken] = useState("");
+    const [totalPosts, setTotalPosts] = useState();
+    const [pageNumber, setPageNumber] = useState();
 
     const { REACT_APP_BASE_URL } = process.env;
 
     const redirectPath = state || "/";
 
     // -----> Get All Posts
-    const getAllPost = async () => {
+    const getAllPost = async (page_number = 1) => {
         try {
             setIsLoading(true);
-            const response = await fetch(`${REACT_APP_BASE_URL}/posts`);
-            const { status, message, posts } = await response.json();
+            const response = await fetch(
+                `${REACT_APP_BASE_URL}/posts/?page_number=${page_number}`
+            );
+            const { status, message, posts, totalPosts, pageNumber } =
+                await response.json();
             if (status === "success") {
                 setIsLoading(false);
                 setAllPosts(posts);
+                setTotalPosts(totalPosts);
+                setPageNumber(pageNumber);
                 return;
             }
 
@@ -363,6 +370,8 @@ const AuthProvider = ({ children }) => {
                 authors,
                 changeAvatar,
                 updateUser,
+                totalPosts,
+                pageNumber,
             }}
         >
             {children}

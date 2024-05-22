@@ -1,0 +1,31 @@
+.pagination_container {
+    margin-top: 3rem;
+    margin-inline: auto;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.pagination_container button {
+    min-width: 2.5rem;
+    height: 2rem;
+    cursor: pointer;
+    padding-inline: 8px;
+    color: white;
+    background-color: var(--color-gray-700);
+    transition: var(--transition);
+    border-radius: 4px;
+}
+
+.pagination_container button:hover:not(button:disabled) /* if the button is not disabled it should not get the hover effect */ {
+    background-color: var(--color-gray-300);
+    color: var(--color-gray-900);
+}
+
+.pagination_container .active_page_btn {
+    background-color: var(--color-gray-300);
+}
+
+.pagination_container button:disabled {
+    cursor: not-allowed;
+}

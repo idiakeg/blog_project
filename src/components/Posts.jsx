@@ -3,9 +3,15 @@ import PostItem from "./PostItem";
 
 import { useAuth } from "../context/AuthProvider";
 import Loading from "./Loading/Loading";
+import Pagination from "./pagination/Pagination";
 
 const Posts = () => {
-    const { allPosts, isLoading, getAllPost } = useAuth();
+    const { allPosts, isLoading, getAllPost, totalPosts, pageNumber } =
+        useAuth();
+
+    const nextPage = (page_number) => {
+        getAllPost(page_number);
+    };
 
     useEffect(() => {
         getAllPost();
@@ -47,6 +53,12 @@ const Posts = () => {
                     ) : (
                         <h2 className="center">No post found</h2>
                     )}
+
+                    <Pagination
+                        pageNo={pageNumber}
+                        nextPage={nextPage}
+                        totalPosts={totalPosts}
+                    />
                 </section>
             )}
         </>
