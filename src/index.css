@@ -101,6 +101,12 @@ section {
     margin-inline: auto;
 }
 
+.skeleton_cont {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
 .btn {
     display: inline-block;
     width: fit-content;
@@ -253,6 +259,12 @@ nav {
 .post__detail {
     width: var(--form-width);
     background: var(--color-white);
+    margin-inline: auto;
+    padding: 2rem 0;
+}
+
+.post__detail_skeleton {
+    width: var(--form-width);
     margin-inline: auto;
     padding: 2rem 0;
 }
@@ -529,6 +541,12 @@ footer {
         width: var(--container-width-md);
     }
 
+    .skeleton_cont {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
     /* Navbar */
     .nav__container {
         position: relative;
@@ -578,6 +596,10 @@ footer {
         padding: 0;
         background: transparent;
         width: 100%;
+    }
+
+    .post__detail_skeleton {
+        width: var(--container-width-md);
     }
 
     .post__detail h1 {

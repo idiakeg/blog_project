@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PostItem from "../components/PostItem";
 import { useAuth } from "../context/AuthProvider";
-import Loading from "../components/Loading/Loading";
+import Skeleton from "../components/Skeleton/Skeleton";
 
 const AuthorPosts = () => {
     const { id } = useParams();
@@ -13,7 +13,11 @@ const AuthorPosts = () => {
     return (
         <>
             {isLoading ? (
-                <Loading />
+                <section className="container skeleton_cont">
+                    {Array.from({ length: 3 }).map((_, index) => (
+                        <Skeleton key={index} />
+                    ))}
+                </section>
             ) : (
                 <section>
                     <h1 className="section_title">

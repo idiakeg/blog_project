@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import PostItem from "./PostItem";
 
 import { useAuth } from "../context/AuthProvider";
-import Loading from "./Loading/Loading";
+import Skeleton from "./Skeleton/Skeleton";
 import Pagination from "./pagination/Pagination";
 
 const Posts = () => {
@@ -19,7 +19,11 @@ const Posts = () => {
     return (
         <>
             {isLoading ? (
-                <Loading />
+                <section className="container skeleton_cont">
+                    {Array.from({ length: 6 }).map((_, index) => (
+                        <Skeleton key={index} />
+                    ))}
+                </section>
             ) : (
                 <section className="posts">
                     <h1 className="section_title">All Posts</h1>
@@ -53,12 +57,13 @@ const Posts = () => {
                     ) : (
                         <h2 className="center">No post found</h2>
                     )}
-
-                    <Pagination
-                        pageNo={pageNumber}
-                        nextPage={nextPage}
-                        totalPosts={totalPosts}
-                    />
+                    {allPosts.length > 0 && (
+                        <Pagination
+                            pageNo={pageNumber}
+                            nextPage={nextPage}
+                            totalPosts={totalPosts}
+                        />
+                    )}
                 </section>
             )}
         </>

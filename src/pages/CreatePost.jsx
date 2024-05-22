@@ -6,6 +6,7 @@ import Loading from "../components/Loading/Loading";
 
 const CreatePost = () => {
     const { createPost, isLoading, errorMessage } = useAuth();
+    const [isError, setIsError] = useState(false);
     const [postData, setPostData] = useState({
         title: "",
         category: "Uncategorized",
@@ -35,6 +36,12 @@ const CreatePost = () => {
         e.preventDefault();
         // for (let item of fd) console.log(item);
         createPost(fd, token);
+        if (errorMessage) {
+            setIsError(true);
+            setTimeout(() => {
+                setIsError(false);
+            }, 3000);
+        }
     };
 
     const modules = {
@@ -76,6 +83,7 @@ const CreatePost = () => {
         "Weather",
         "Uncategorized",
     ];
+
     return (
         <>
             {isLoading ? (
@@ -84,7 +92,7 @@ const CreatePost = () => {
                 <section className="create__post">
                     <div className="container">
                         <h2>Create Post</h2>
-                        {errorMessage && (
+                        {isError && (
                             <p className="form__error-message">
                                 {errorMessage}
                             </p>

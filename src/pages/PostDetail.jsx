@@ -3,7 +3,7 @@ import PostAuthor from "../components/PostAuthor";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import { useEffect } from "react";
-import Loading from "../components/Loading/Loading";
+import Skeleton from "../components/Skeleton/Skeleton";
 
 const PostDetail = () => {
     const { id } = useParams();
@@ -21,7 +21,9 @@ const PostDetail = () => {
     return (
         <>
             {isLoading ? (
-                <Loading />
+                <section className="container post__detail_skeleton">
+                    <Skeleton />
+                </section>
             ) : (
                 <section className="post__detail">
                     <div className="container post__detail-container">
